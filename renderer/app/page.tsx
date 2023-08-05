@@ -81,7 +81,7 @@ export default function Page() {
                                 </div>
                             </div>
         
-                            <button type="submit" onClick={handleLogin} className="block w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">Entrar</button>
+                            <Link href="dashboard_page" className="block w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">Entrar</Link>
                                             
                         </form>
             
