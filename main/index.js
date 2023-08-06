@@ -9,7 +9,7 @@ const electron_1 = require("electron");
 const electron_is_dev_1 = __importDefault(require("electron-is-dev"));
 const electron_next_1 = __importDefault(require("electron-next"));
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
-electron_1.app.on('ready', async () => {
+const createWindow = async () => {
     await (0, electron_next_1.default)('./renderer');
     const loadingWindow = new electron_1.BrowserWindow({
         width: 400,
@@ -19,14 +19,14 @@ electron_1.app.on('ready', async () => {
             nodeIntegration: true,
         },
     });
-    const urlLoader = electron_is_dev_1.default
-        ? 'http://localhost:8000/loading'
+    const loadFile = electron_is_dev_1.default
+        ? 'http://localhost:8000/loader'
         : (0, url_1.format)({
-            pathname: (0, path_1.join)(__dirname, '../renderer/out/loading.html'),
+            pathname: (0, path_1.join)(__dirname, '../renderer/out/loader.html'),
             protocol: 'file:',
             slashes: true,
         });
-    loadingWindow.loadURL(urlLoader);
+    loadingWindow.loadURL(loadFile);
     const mainWindow = new electron_1.BrowserWindow({
         width: 1280,
         height: 720,
@@ -61,5 +61,17 @@ electron_1.app.on('ready', async () => {
     mainWindow.webContents.on('dom-ready', () => {
         mainWindow.show();
     });
+};
+electron_1.app.whenReady().then(() => {
+    createWindow();
+    electron_1.app.on('activate', () => {
+        // On macOS it's common to re-create a window in the app when the
+        // dock icon is clicked and there are no other windows open.
+        if (electron_1.BrowserWindow.getAllWindows().length === 0)
+            createWindow();
+    });
 });
-electron_1.app.on('window-all-closed', electron_1.app.quit);
+electron_1.app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin')
+        electron_1.app.quit();
+});

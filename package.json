@@ -1,7 +1,7 @@
 {
   "private": true,
   "main": "main/index.js",
-  "productName": "ElectronTypescriptNext",
+  "productName": "LabAnalisys-Project",
   "scripts": {
     "clean": "rimraf dist main renderer/out renderer/.next",
     "dev": "npm run build-electron && electron .",
@@ -39,7 +39,7 @@
       "renderer/out"
     ]
   },
-  "name": "labanalisys-project",
+  "name": "labanalisys",
   "version": "1.0.0",
   "author": "",
   "license": "ISC",

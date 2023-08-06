@@ -7,7 +7,7 @@ import prepareNext from 'electron-next'
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
-app.on('ready', async () => {
+const createWindow = async () => {
   await prepareNext('./renderer');
 
   const loadingWindow = new BrowserWindow({
@@ -19,15 +19,15 @@ app.on('ready', async () => {
     },
   });
 
-  const urlLoader = isDev
-  ? 'http://localhost:8000/loading'
+  const loadFile = isDev
+  ? 'http://localhost:8000/loader'
   : format({
-      pathname: join(__dirname, '../renderer/out/loading.html'),
+      pathname: join(__dirname, '../renderer/out/loader.html'),
       protocol: 'file:',
       slashes: true,
     })
 
-  loadingWindow.loadURL(urlLoader);
+  loadingWindow.loadURL(loadFile);
 
   const mainWindow = new BrowserWindow({
     width: 1280,
@@ -61,12 +61,25 @@ app.on('ready', async () => {
 
   mainWindow.loadURL(url)
 
+
   mainWindow.webContents.once('did-finish-load', () => {
     loadingWindow.close();
   });
   mainWindow.webContents.on('dom-ready', () => {
     mainWindow.show();
   });
-});
+}
 
-app.on('window-all-closed', app.quit);
+app.whenReady().then(() => {
+  createWindow()
+
+  app.on('activate', () => {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+})
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit()
+})
