@@ -1,17 +1,9 @@
-import { join } from 'path';
-import { BrowserWindow, app } from 'electron';
-import prepareNext from 'electron-next';
-import { spawn } from 'child_process';
+import { join } from 'path'
+import { format } from 'url'
 
-const startDjangoServer = () => {
-    const djangoBackend = spawn(`python\\env\\Scripts\\python.exe`, ['python\\core\\manage.py', 'runserver', '--noreload']);
-    djangoBackend.stdout.on('data', data =>{console.log(`stdout:\n${data}`);});
-    djangoBackend.stderr.on('data', data =>{console.log(`stderr: ${data}`);});
-    djangoBackend.on('error', (error) =>{console.log(`error: ${error.message}`);});
-    djangoBackend.on('close', (code) =>{console.log(`child process exited with code ${code}`);});
-    djangoBackend.on('message', (message) =>{console.log(`message:\n${message}`);});
-    return djangoBackend;
-}
+import { BrowserWindow, app} from 'electron'
+import isDev from 'electron-is-dev'
+import prepareNext from 'electron-next'
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -27,7 +19,15 @@ app.on('ready', async () => {
     },
   });
 
-  loadingWindow.loadFile('./renderer/components/loading.html');
+  const urlLoader = isDev
+  ? 'http://localhost:8000/loading'
+  : format({
+      pathname: join(__dirname, '../renderer/out/loading.html'),
+      protocol: 'file:',
+      slashes: true,
+    })
+
+  loadingWindow.loadURL(urlLoader);
 
   const mainWindow = new BrowserWindow({
     width: 1280,
@@ -49,8 +49,17 @@ app.on('ready', async () => {
       height: 30
     }
   });
+  
 
-  mainWindow.loadURL('http://localhost:8000');
+  const url = isDev
+  ? 'http://localhost:8000/'
+  : format({
+      pathname: join(__dirname, '../renderer/out/index.html'),
+      protocol: 'file:',
+      slashes: true,
+    })
+
+  mainWindow.loadURL(url)
 
   mainWindow.webContents.once('did-finish-load', () => {
     loadingWindow.close();
@@ -58,8 +67,6 @@ app.on('ready', async () => {
   mainWindow.webContents.on('dom-ready', () => {
     mainWindow.show();
   });
-
-  startDjangoServer();
 });
 
 app.on('window-all-closed', app.quit);

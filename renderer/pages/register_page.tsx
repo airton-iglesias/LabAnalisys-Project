@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import TitleBar from "../../components/TitleBar";
+import TitleBar from "../components/TitleBar";
 import Link from "next/link";
-import axios from "axios";
 
-export default function Page() {
+export default function RegisterPage() {
     
     const [showPassword, setShowPassword] = useState(true);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(true);
@@ -14,28 +13,6 @@ export default function Page() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/register/', {
-                nome,
-                login,
-                password,
-              });              
-
-            if (response.data.detail == "Usuário criado com sucesso."){
-                window.location.href = '/login';
-            }
-            else{
-                console.log("algo deu errado");
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        };
-
 
     return (
         <>
@@ -116,7 +93,7 @@ export default function Page() {
                                     </div>
                                 </div>
                             
-                                <button type="submit" onClick={handleLogin} className="block w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:border-slate-800 focus:outline-slate-800 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">
+                                <button type="submit" className="block w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:border-slate-800 focus:outline-slate-800 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">
                                     Cadastrar
                                 </button>
                             </form>

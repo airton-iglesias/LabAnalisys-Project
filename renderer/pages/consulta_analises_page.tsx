@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import TitleBar from "../../components/TitleBar";
+import TitleBar from "../components/TitleBar";
 import Link from "next/link";
 
-export default function Page() {
+export default function ConsultaAnalisesPage() {
     
     const [showPassword, setShowPassword] = useState(true);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(true);

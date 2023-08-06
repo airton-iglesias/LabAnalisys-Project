@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import TitleBar from "../../components/TitleBar";
+import TitleBar from "../components/TitleBar";
 import Link from "next/link";
 import axios from "axios";
 
-export default function Page() {
+export default function ConsultaPacientePage() {
     
     const [showPassword, setShowPassword] = useState(true);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(true);
@@ -56,7 +56,7 @@ export default function Page() {
                     <div className="w-96 bg-white rounded-lg shadow sm:max-w-md p-2">
                         <div className="p-6 space-y-4">
                             <div className="flex justify-center mb-6 text-lg sm:text-2xl font-semibold text-gray-900 ">
-                                Cadastro Paciente
+                                Cadastro do Paciente
                             </div>
 
                             <div id="errorPopUp" className="hidden bg-red-400 p-3 rounded-lg text-center">
@@ -115,10 +115,6 @@ export default function Page() {
                                         />
                                     </div>
                                 </div>
-                            
-                                <Link href="paciente_cadastro_sucess_page" className="block w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:border-slate-800 focus:outline-slate-800 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">
-                                    Cadastrar
-                                </Link>
                             </form>
                         </div>
                     </div>

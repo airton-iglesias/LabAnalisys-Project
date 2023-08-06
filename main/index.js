@@ -4,18 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
+const url_1 = require("url");
 const electron_1 = require("electron");
+const electron_is_dev_1 = __importDefault(require("electron-is-dev"));
 const electron_next_1 = __importDefault(require("electron-next"));
-const child_process_1 = require("child_process");
-const startDjangoServer = () => {
-    const djangoBackend = (0, child_process_1.spawn)(`python\\env\\Scripts\\python.exe`, ['python\\core\\manage.py', 'runserver', '--noreload']);
-    djangoBackend.stdout.on('data', data => { console.log(`stdout:\n${data}`); });
-    djangoBackend.stderr.on('data', data => { console.log(`stderr: ${data}`); });
-    djangoBackend.on('error', (error) => { console.log(`error: ${error.message}`); });
-    djangoBackend.on('close', (code) => { console.log(`child process exited with code ${code}`); });
-    djangoBackend.on('message', (message) => { console.log(`message:\n${message}`); });
-    return djangoBackend;
-};
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 electron_1.app.on('ready', async () => {
     await (0, electron_next_1.default)('./renderer');
@@ -27,7 +19,14 @@ electron_1.app.on('ready', async () => {
             nodeIntegration: true,
         },
     });
-    loadingWindow.loadFile('./renderer/components/loading.html');
+    const urlLoader = electron_is_dev_1.default
+        ? 'http://localhost:8000/loading'
+        : (0, url_1.format)({
+            pathname: (0, path_1.join)(__dirname, '../renderer/out/loading.html'),
+            protocol: 'file:',
+            slashes: true,
+        });
+    loadingWindow.loadURL(urlLoader);
     const mainWindow = new electron_1.BrowserWindow({
         width: 1280,
         height: 720,
@@ -48,13 +47,19 @@ electron_1.app.on('ready', async () => {
             height: 30
         }
     });
-    mainWindow.loadURL('http://localhost:8000');
+    const url = electron_is_dev_1.default
+        ? 'http://localhost:8000/'
+        : (0, url_1.format)({
+            pathname: (0, path_1.join)(__dirname, '../renderer/out/index.html'),
+            protocol: 'file:',
+            slashes: true,
+        });
+    mainWindow.loadURL(url);
     mainWindow.webContents.once('did-finish-load', () => {
         loadingWindow.close();
     });
     mainWindow.webContents.on('dom-ready', () => {
         mainWindow.show();
     });
-    startDjangoServer();
 });
 electron_1.app.on('window-all-closed', electron_1.app.quit);

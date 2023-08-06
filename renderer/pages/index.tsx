@@ -1,35 +1,13 @@
-"use client";
-
 import { useState } from "react";
 import TitleBar from "../components/TitleBar";
 import Link from "next/link";
-import Cookies from 'js-cookie';
-import axios from "axios";
 
 
-export default function Page() {
+export default function Home() {
     
     const [showPassword, setShowPassword] = useState(true);
-
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        const headers = {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': 'django-insecure-$*4*s7tg8l1+11%^!kk&u98_(zj-@qt24&drg(rh+#rx#anbsy', // Substitua pelo valor correto do token CSRF
-          };
-          
-          axios.post('http://127.0.0.1:8000/api/login/', { login: login, password: password }, { headers })
-            .then((response) => {
-              console.log(response.data);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        }
      
     return (
         <>
