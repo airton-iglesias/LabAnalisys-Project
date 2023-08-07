@@ -11,9 +11,9 @@ export default function DashboardPage() {
      
     return (
         <>
-            <TitleBar/>
             <section className="flex w-screen h-screen bg-slate-800 text-white">
                 <div>
+                    <TitleBar/>
                     <div className="absolute w-full text-center mt-10">
                         <span className=" text-4xl">Logo</span>
                     </div>

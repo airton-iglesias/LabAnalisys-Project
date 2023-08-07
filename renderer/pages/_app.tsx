@@ -1,4 +1,4 @@
-import "../components/global.css"
+import "../components/styles.css"
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
 

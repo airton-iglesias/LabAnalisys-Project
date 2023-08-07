@@ -4,7 +4,7 @@ import { useState } from "react";
 import TitleBar from "../components/TitleBar";
 import Link from "next/link";
 
-export default function AmostraResultadoConfirmacaoPage() {
+export default function ConsultaAnalisesPage() {
     
     const [showPassword, setShowPassword] = useState(true);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(true);
@@ -22,7 +22,7 @@ export default function AmostraResultadoConfirmacaoPage() {
 
             <section className="flex w-[85%] mx-auto mb-3 h-full bg-slate-800">
                 <div className="bg-slate-800">
-                    <Link href="analise_amostra_page" className="flex hover:underline text-white cursor-pointer">
+                    <Link href="consulta_analises_page" className="flex hover:underline text-white cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="inline w-5 h-5 mb-1.5 mr-1">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                         </svg>
@@ -55,12 +55,6 @@ export default function AmostraResultadoConfirmacaoPage() {
                         <div className="w-full h-[40rem] rounded-lg">
                             <img className="bg-gray-200 w-full h-full rounded-lg" loading="lazy"/>
                         </div>
-                    </div>
-
-                    <div className="flex w-full h-auto mt-8 justify-end">
-                        <Link href="amostra_cadastro_sucess_page" className="block w-44 right-0 text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:border-slate-800 focus:outline-slate-800 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">
-                            Cadastrar
-                        </Link>
                     </div>
                 </div>
             </section>

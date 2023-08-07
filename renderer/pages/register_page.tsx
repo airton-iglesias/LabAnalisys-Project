@@ -93,7 +93,7 @@ export default function RegisterPage() {
                                     </div>
                                 </div>
                             
-                                <button type="submit" className="block w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:border-slate-800 focus:outline-slate-800 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">
+                                <button type="submit" className="block w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:border-slate-800 focus:outline-slate-800 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">
                                     Cadastrar
                                 </button>
                             </form>
