@@ -1,40 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TitleBar from "../components/TitleBar";
 import Link from "next/link";
-import axios from "axios";
 
 export default function ConsultaPacientePage() {
-    
-    const [showPassword, setShowPassword] = useState(true);
-    const [showPasswordConfirm, setShowPasswordConfirm] = useState(true);
-     
-    const [nome, setNome] = useState('');
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/register/', {
-                nome,
-                login,
-                password,
-              });              
-
-            if (response.data.detail == "Usuário criado com sucesso."){
-                window.location.href = '/login';
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const dataFetch = await fetch("https://api.warframe.market/v1/items");
+                if (!dataFetch.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                const response = await dataFetch.json();
+                setData(response.payload.items);
+                if (response.payload.items !== null) {
+                    setIsLoading(false)
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-            else{
-                console.log("algo deu errado");
-            }
-          } catch (error) {
-            console.error(error);
-          }
         };
+        getData();
+    }, []);
 
 
     return (
@@ -67,53 +59,65 @@ export default function ConsultaPacientePage() {
                             </div>
 
                             <form className="space-y-4">
-
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 ">Nome do Paciente</label>
-                                    <input 
-                                        type="text" 
-                                        onChange={(e) => setNome(e.target.value)} 
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5 " 
-                                        placeholder="Nome do Paciente" 
-                                        required
-                                    />
+                                    {isLoading ? 
+                                        <div className="bg-gray-300  text-gray-900 rounded-lg  block w-full h-10"></div>
+                                        :
+                                        <input 
+                                            type="text" 
+                                            value=""
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5 " 
+                                            placeholder="Nome do Paciente" 
+                                            disabled
+                                        />
+                                    }
                                 </div>
 
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 ">Data de Nascimento</label>
-                                    <input 
-                                        type="text" 
-                                        onChange={(e) => setLogin(e.target.value)}  
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5 " 
-                                        placeholder="05/08/2023" 
-                                        required
-                                    />
+                                    {isLoading ? 
+                                        <div className="bg-gray-300  text-gray-900 rounded-lg  block w-full h-10"></div>
+                                        :
+                                        <input 
+                                            type="text"
+                                            placeholder="07/08/2023" 
+                                            value=""
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5" 
+                                            disabled
+                                        />
+                                    }
                                 </div>
 
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900">Contato</label>
-                                    <div className="relative">
+                                    {isLoading ? 
+                                        <div className="bg-gray-300  text-gray-900 rounded-lg  block w-full h-10"></div>
+                                        :
                                         <input 
                                             type="text"
                                             placeholder="(99) 99999-9999" 
-                                            onChange={(e) => setPassword(e.target.value)} 
+                                            value=""
                                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5" 
-                                            required
+                                            disabled
                                         />
-                                    </div>
+                                    }
+                                    
                                 </div>
 
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                                    <div className="relative">
+                                    {isLoading ? 
+                                        <div className="bg-gray-300  text-gray-900 rounded-lg  block w-full h-10"></div>
+                                        :
                                         <input 
                                             type="email" 
-                                            onChange={(e) => setConfirmPassword(e.target.value)} 
+                                            value=""
                                             placeholder="email@example.com" 
                                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5" 
-                                            required
+                                            disabled
                                         />
-                                    </div>
+                                    }
                                 </div>
                             </form>
                         </div>

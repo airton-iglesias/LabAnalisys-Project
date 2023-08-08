@@ -20,7 +20,7 @@ export default function AmostraResultadoConfirmacaoPage() {
                 </div>
             </section>
 
-            <section className="flex w-[85%] mx-auto mb-3 h-full bg-slate-800">
+            <section className="flex w-full px-10 mb-3 h-full bg-slate-800">
                 <div className="bg-slate-800">
                     <Link href="analise_amostra_page" className="flex hover:underline text-white cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="inline w-5 h-5 mb-1.5 mr-1">
@@ -32,8 +32,8 @@ export default function AmostraResultadoConfirmacaoPage() {
                 </div>
             </section>
 
-            <section className="flex w-full h-full bg-slate-800">
-                <div className="flex flex-col w-[85%] h-full bg-white text-white font-bold mx-auto rounded-lg px-16 pt-16 pb-8 mb-8">
+            <section className="flex w-full h-full px-10 bg-slate-800">
+                <div className="flex flex-col w-full h-full bg-white text-white font-bold rounded-lg px-16 pt-16 pb-8 mb-8">
                     <div className="text-black w-full">
                         <h1 className="text-3xl font-bold">Dados da Consulta - Confirmação</h1>
                         <div className="flex justify-between font-semibold p-10 pr-36  text-lg">

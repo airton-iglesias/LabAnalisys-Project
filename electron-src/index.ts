@@ -14,6 +14,7 @@ const createWindow = async () => {
     width: 400,
     height: 200,
     frame: false,
+    icon: "./icon.png",
     webPreferences: {
       nodeIntegration: true,
     },
@@ -34,11 +35,13 @@ const createWindow = async () => {
     height: 720,
     minWidth: 1280,
     minHeight: 720,
+    icon: "./icon.png",
     resizable: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: false,
       preload: join(__dirname, 'preload.js'),
+      webSecurity: false,
     },
     show: false,
     frame: true,

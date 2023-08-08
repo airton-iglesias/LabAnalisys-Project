@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const Layout = ({ children, title = 'LabAnalisys-Project' }: Props) => (
-  <div>
+  <div >
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
