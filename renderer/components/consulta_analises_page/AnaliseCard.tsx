@@ -1,38 +1,38 @@
 import Link from "next/link";
-import EditarPacienteCard from "./EditarPacienteCard";
 import { useState } from "react";
-import SucessEditarPacienteCard from "./SucessEditarPacienteCard";
-import DetalhesPacienteCard from "./DetalhesPacienteCard";
+import EditarAnaliseCard from "./EditarAnaliseCard";
+import DetalhesAnaliseCard from "./DetalhesAnaliseCard";
+import SucessEditarAnaliseCard from "./SucessEditarAnaliseCard";
 
-export default function PacienteCard({id, foto ,nome, email, cpf , rua, bairro, numero, cidade, estado, dataNascimento, sexo, contato}){
+export default function AnaliseCard({id, foto ,nome, email, cpf , rua, bairro, numero, cidade, estado, dataNascimento, sexo, contato}){
 
-    const [editarPaciente, setEditarPaciente] = useState(false)
-    const [detalhesPaciente, setDetalhesPaciente] = useState(false)
-    const [sucessEditarPaciente, setSucessEditarPaciente] = useState(false)
+    const [editarAnalise, setEditarAnalise] = useState(false)
+    const [detalhesAnalise, setDetalhesAnalise] = useState(false)
+    const [sucessEditarAnalise, setSucessEditarAnalise] = useState(false)
 
-    const setOffDetalhesPaciente = () =>{
-        setDetalhesPaciente(false)
+    const setOffDetalhesAnalise = () =>{
+        setDetalhesAnalise(false)
     }
 
-    const setOffEditarPaciente = () =>{
-        setEditarPaciente(false)
+    const setOffEditarAnalise = () =>{
+        setEditarAnalise(false)
     }
 
-    const setOnSuccessEditarPaciente = () =>{
-        setSucessEditarPaciente(true)
-        setEditarPaciente(false)
+    const setOnSuccessEditarAnalise = () =>{
+        setSucessEditarAnalise(true)
+        setEditarAnalise(false)
     }
     
-    const setOffSuccessEditarPaciente = () =>{
-        setSucessEditarPaciente(false)
+    const setOffSuccessEditarAnalise = () =>{
+        setSucessEditarAnalise(false)
     }
  
     return(
         <>
-           {editarPaciente ?
-                <EditarPacienteCard 
-                    setOffEditarPaciente={setOffEditarPaciente} 
-                    setOnSuccessEditarPaciente={setOnSuccessEditarPaciente}
+           {editarAnalise ?
+                <EditarAnaliseCard 
+                    setOffEditarPaciente={setOffEditarAnalise} 
+                    setOnSuccessEditarPaciente={setOffSuccessEditarAnalise}
                     id={id} 
                     foto={foto}
                     nome={nome}
@@ -48,11 +48,11 @@ export default function PacienteCard({id, foto ,nome, email, cpf , rua, bairro, 
                     contato={contato}
                 /> : <></> }
 
-           {sucessEditarPaciente ? <SucessEditarPacienteCard setOffSuccessEditarPaciente={setOffSuccessEditarPaciente}/> : <></>}
+           {sucessEditarAnalise ? <SucessEditarAnaliseCard setOffSuccessEditarPaciente={setOnSuccessEditarAnalise}/> : <></>}
 
-           {detalhesPaciente ? 
-                <DetalhesPacienteCard
-                    setOffDetalhesPaciente = {setOffDetalhesPaciente}
+           {detalhesAnalise ? 
+                <DetalhesAnaliseCard
+                    setOffDetalhesPaciente = {setOffDetalhesAnalise}
                     id={id} 
                     foto={foto}
                     nome={nome}
@@ -90,7 +90,7 @@ export default function PacienteCard({id, foto ,nome, email, cpf , rua, bairro, 
                 </td>
                 <td className="px-2 py-4 text-center">
                     <span>
-                        {bairro}
+                        {nome}
                     </span>
                 </td>
                 <td className="px-2 py-4 text-center">
@@ -100,7 +100,7 @@ export default function PacienteCard({id, foto ,nome, email, cpf , rua, bairro, 
                 </td>
                 <td className="px-2 py-4 text-center">
                     <span>
-                        {cidade}
+                        {numero}
                     </span>
                 </td>
                 <td className="px-2 py-4 text-center">
@@ -108,14 +108,11 @@ export default function PacienteCard({id, foto ,nome, email, cpf , rua, bairro, 
                         {"08/08/2023"}
                     </span>
                 </td>
-                <td className="px-2 py-4 text-center">
-                    <span>{contato}</span>
+                <td className="px-6 py-4 w-5">
+                    <button onClick={() => setDetalhesAnalise(true)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detalhes</button>
                 </td>
                 <td className="px-6 py-4 w-5">
-                    <button onClick={() => setDetalhesPaciente(true)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detalhes</button>
-                </td>
-                <td className="px-6 py-4 w-5">
-                    <button onClick={() => setEditarPaciente(true)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</button>
+                    <button onClick={() => setDetalhesAnalise(true)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</button>
                 </td>
             </tr>
         </>

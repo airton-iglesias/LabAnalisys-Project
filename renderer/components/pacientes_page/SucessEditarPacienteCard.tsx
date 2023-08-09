@@ -16,7 +16,7 @@ export default function SucessEditarPacienteCard({ setOffSuccessEditarPaciente})
                 <div className="bg-white w-full lg:w-[50rem] lg:mx-auto h-auto flex flex-col rounded-lg">
                     <div className="flex my-3 w-full h-14 justify-between px-16 items-center mt-5">
                         <h1 className="flex text-3xl mx-auto font-bold">Cadastro de paciente editado com sucesso!</h1>
-                        <div className="flex cursor-pointer rounded-full" onClick={setOffScreen}>
+                        <div className="flex cursor-pointer hover:bg-gray-300 rounded-full" onClick={setOffScreen}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>

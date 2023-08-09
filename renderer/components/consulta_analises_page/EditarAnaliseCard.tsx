@@ -4,7 +4,7 @@ import { useState } from "react";
 import AvisoDeAcao from "./AvisoDeAcao";
 
 
-export default function EditarPacienteCard({setOffEditarPaciente, setOnSuccessEditarPaciente, id, foto ,nome, email, cpf , rua, bairro, numero, cidade, estado, dataNascimento, sexo, contato}){
+export default function EditarAnaliseCard({setOffEditarPaciente, setOnSuccessEditarPaciente, id, foto ,nome, email, cpf , rua, bairro, numero, cidade, estado, dataNascimento, sexo, contato}){
     const [selectedImage, setSelectedImage] = useState(foto);
     const [showAviso, setShowAviso] = useState(false)
 

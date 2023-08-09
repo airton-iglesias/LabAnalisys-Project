@@ -5,9 +5,8 @@ import TitleBar from "../components/TitleBar";
 import Link from "next/link";
 import PacienteCard from "../components/pacientes_page/PacienteCard";
 import PacienteCardLoading from "../components/pacientes_page/PacienteCardLoading";
-import RegisterPacienteCard from "../components/pacientes_page/RegisterPacienteCard";
+import RegisterPacienteCard from "../components/pacientes_page/CadastroPacienteCard";
 import SucessRegisterPacienteCard from "../components/pacientes_page/SucessRegisterPacienteCard";
-import EditarPacienteCard from "../components/pacientes_page/EditarPacienteCard";
 
 export default function PacientesPage() {
 
@@ -16,6 +15,7 @@ export default function PacientesPage() {
     const [data, setData] = useState(null)
     const [registrarPaciente, setOffRegistrarPaciente] = useState(false)
     const [successRegistrarPaciente, setOffSuccessRegistrarPaciente] = useState(false)
+    const keywords = searchQuery.toLowerCase().split(' ');
 
 
     // Registro de Paciente
@@ -56,14 +56,16 @@ export default function PacientesPage() {
             
             <section className="mt-10 mx-10">
                 <div className="flex w-full">
-                    <div >
-                        <Link href="dashboard_page" className="flex hover:underline text-white cursor-pointer">
+                    <div className="text-white flex justify-between w-full">
+                        <Link href="dashboard_page" className="flex self-end hover:underline text-white cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="inline w-5 h-5 mb-1.5 mr-1">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                             </svg>
 
                             Voltar
                         </Link>
+                        <h1 className="text-3xl flex top-[-30px] font-bold">LOGO</h1>
+                        <div></div>
                     </div>
                 </div>
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -132,9 +134,23 @@ export default function PacientesPage() {
                                 </>
                                 :
                                 data
-                                    .filter((item, index) =>
-                                        item.name.first.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                        item.id.value.toLowerCase().includes(searchQuery.toLowerCase()))
+                                    .filter((item) => {
+                                        const fullName = (item.name.first + " " + item.name.last).toLowerCase();
+                                        const email = item.email.toLowerCase();
+                                        const cpf = item.id.value.toLowerCase();
+                                        const streetName = item.location.street.name.toLowerCase();
+                                        const city = item.location.city.toLowerCase();
+                                        const state = item.location.state.toLowerCase();
+
+                                        return keywords.every(keyword =>
+                                            fullName.includes(keyword) ||
+                                            email.includes(keyword) ||
+                                            cpf.includes(keyword) ||
+                                            streetName.includes(keyword) ||
+                                            city.includes(keyword) ||
+                                            state.includes(keyword)
+                                        );
+                                    })
                                     .map((item, index) => 
                                         <PacienteCard
                                             key={index}

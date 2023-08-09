@@ -1,6 +1,3 @@
-import icon from "../../public/icons/oval-loading.svg"
-const logo = require("../../public/icons/oval-loading.svg");
-
 export default function loader(){
     return(
         <>
@@ -23,7 +20,7 @@ export default function loader(){
                                 </g>
                             </g>
                         </svg>
-                        <div className="loading-text top-[60px] w-full h-[100px] top-0">
+                        <div className="loading-text top-[60px] w-full h-[100px]">
                             <span className="loading-text-words">C</span>
                             <span className="loading-text-words">A</span>
                             <span className="loading-text-words">R</span>
