@@ -90,13 +90,10 @@ export default function PacientesPage() {
                                     ID
                                 </th>
                                 <th  className="text-center py-3">
-                                    Nome
+                                    Nome Profissional
                                 </th>
                                 <th  className="text-center py-3">
                                     Diagnóstico
-                                </th>
-                                <th  className="text-center py-3">
-                                    Profissional
                                 </th>
                                 <th  className="text-center py-3">
                                     Pontos Vermelhos
@@ -104,18 +101,21 @@ export default function PacientesPage() {
                                 <th  className="text-center py-3">
                                     Pontos Azuis
                                 </th>
-                                <th  className=" text-center py-3">
-                                    Data de Nascimento
+                                <th  className="text-center py-3">
+                                    Data
                                 </th>
                                 <th  className="text-center py-3">
+
                                 </th>
                                 <th  className="text-center py-3 ">
+
                                 </th>
                             </tr>
                         </thead>
                         <tbody className="bg-gray-200">
                             {isLoading ? 
                                 <>
+                                    <AnaliseCardLoading/>
                                     <AnaliseCardLoading/>
                                     <AnaliseCardLoading/>
                                     <AnaliseCardLoading/>

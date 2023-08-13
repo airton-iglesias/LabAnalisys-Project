@@ -1,8 +1,6 @@
-import Link from "next/link";
-import { useState } from "react";
 
 
-export default function DetalhesAnaliseCard({setOffDetalhesPaciente, id, foto ,nome, email, cpf , rua, bairro, numero, cidade, estado, dataNascimento, sexo, contato}){
+export default function DetalhesAnaliseCard({setOffDetalhesPaciente, id, foto ,nome, email, cpf}){
     return(
         <>
             <section className="fixed flex flex-col w-screen h-screen top-0 bg-slate-800/80 z-10 items-center justify-center">
@@ -23,26 +21,21 @@ export default function DetalhesAnaliseCard({setOffDetalhesPaciente, id, foto ,n
                         </div>
                     </div>
 
-                    <div className="flex flex-col w-full h-[35rem] text-white mt-2 font-bold rounded-lg px-6 pb-8 mb-8">
-                        <div className="text-black w-full">
+                    <div className="h-[35rem] text-white mt-2 font-bold rounded-lg px-8 overflow-scroll-y">
+                        <div className="text-black w-full ">
                             <div className="flex justify-between font-semibold text-base px-16 mb-5">
                                 <div className="flex flex-col">
                                     <span className="font-bold">ID: 99999999</span>
-                                    <span>Nome Paciente</span>
-                                    <span>Email</span>
-                                    <span>CPF</span>
-                                </div>
-                                <div className="flex flex-col">
-                                    <span>Data: 07/08/2023</span>
+                                    <span>Nome Profissional: {nome}</span>
                                     <span>Total Pontos Vermelhos: 9999999</span>
                                     <span>Total Pontos Azuis: 99999999</span>
-                                    <span>Profissional: Lorem Ipsu</span>
-                                    <span>Diagnóstico</span>
+                                    <span>Diagnostico</span>
+                                    <span>Data: 07/08/2023</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="text-black w-full">
-                            <h1 className="text-3xl ml-16 font-bold mb-8">Amostra Analisada</h1>
+                        <div className="text-black w-full pb-4">
+                            <h1 className="text-3xl ml-16 font-bold mb-5">Amostra Analisada</h1>
                             <div className="rounded-lg">
                                 <img className="bg-gray-200 w-[35rem] h-[20rem] rounded-lg mx-auto" loading="lazy"/>
                             </div>
