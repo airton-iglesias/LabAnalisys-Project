@@ -1,14 +1,8 @@
 "use client";
-
-import { useState } from "react";
 import TitleBar from "../components/TitleBar";
 import Link from "next/link";
 
-export default function DashboardPage() {
-    
-    const [showPassword, setShowPassword] = useState(true);
-    const [showPasswordConfirm, setShowPasswordConfirm] = useState(true);
-     
+export default function DashboardPage() { 
     return (
         <>
             <section className="flex w-screen h-screen bg-slate-800 text-white">

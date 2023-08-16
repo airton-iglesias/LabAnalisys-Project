@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState } from "react";
 import EditarAnaliseCard from "./EditarAnaliseCard";
 import DetalhesAnaliseCard from "./DetalhesAnaliseCard";

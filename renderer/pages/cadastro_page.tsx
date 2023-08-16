@@ -35,26 +35,21 @@ export default function RegisterPage() {
                             <div className="flex justify-center mb-6 text-lg sm:text-2xl font-semibold text-gray-900 ">
                                 Cadastro
                             </div>
-
                             <div id="errorPopUp" className="hidden bg-red-400 p-3 rounded-lg text-center">
                                 <h1 className="text-xl">Error</h1>
                                 <p id="errorPopUpText">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
                                 </p>
                             </div>
-
                             <form className="space-y-4">
-
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 ">Nome Profissional</label>
                                     <input type="text" onChange={(e) => setNome(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5 " placeholder="Nome" required/>
                                 </div>
-
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 ">Login</label>
                                     <input type="text" onChange={(e) => setLogin(e.target.value)}  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800 focus:outline-slate-800 block w-full p-2.5 " placeholder="email@exemplo.com" required/>
                                 </div>
-
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900">Senha</label>
                                     <div className="relative">
@@ -73,7 +68,6 @@ export default function RegisterPage() {
                                         </span>
                                     </div>
                                 </div>
-
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900">Senha novamente</label>
                                     <div className="relative">
@@ -92,7 +86,6 @@ export default function RegisterPage() {
                                         </span>
                                     </div>
                                 </div>
-                            
                                 <button type="submit" className="block w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:border-slate-800 focus:outline-slate-800 font-medium rounded-lg text-sm px-5 py-3 text-center h-12">
                                     Cadastrar
                                 </button>

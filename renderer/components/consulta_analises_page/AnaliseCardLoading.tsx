@@ -1,6 +1,5 @@
 export default function AnaliseCardLoading(){
     return(     
-
         <tr className="h-auto border-y-2 border-gray-300">
             <td className="w-4 px-4">
                 <div className="flex items-center">
@@ -44,7 +43,6 @@ export default function AnaliseCardLoading(){
                     <div className="w-12 h-6 rounded-lg bg-gray-300 animate-pulse"></div>
                 </span>
             </td>
-        </tr>
-             
+        </tr>        
     )
 }

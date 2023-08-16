@@ -3,10 +3,6 @@
 import { useEffect, useState } from "react";
 import TitleBar from "../components/TitleBar";
 import Link from "next/link";
-import PacienteCard from "../components/pacientes_page/PacienteCard";
-import PacienteCardLoading from "../components/pacientes_page/PacienteCardLoading";
-import RegisterPacienteCard from "../components/pacientes_page/CadastroPacienteCard";
-import SucessRegisterPacienteCard from "../components/pacientes_page/SucessRegisterPacienteCard";
 import AnaliseCard from "../components/consulta_analises_page/AnaliseCard";
 import AnaliseCardLoading from "../components/consulta_analises_page/AnaliseCardLoading";
 
@@ -15,21 +11,7 @@ export default function PacientesPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
     const [data, setData] = useState(null)
-    const [registrarPaciente, setOffRegistrarPaciente] = useState(false)
-    const [successRegistrarPaciente, setOffSuccessRegistrarPaciente] = useState(false)
     const keywords = searchQuery.toLowerCase().split(' ');
-
-
-    // Registro de Paciente
-    const setOffRegisterScreen = () => {
-        setOffRegistrarPaciente(false)
-    }
-    const setOnSuccessRegisterScreen = () => {
-        setOffSuccessRegistrarPaciente(true)
-    }
-    const setOffSuccessRegisterScreen = () => {
-        setOffSuccessRegistrarPaciente(false)
-    }
 
     useEffect(() => {
         const getData = async () => {

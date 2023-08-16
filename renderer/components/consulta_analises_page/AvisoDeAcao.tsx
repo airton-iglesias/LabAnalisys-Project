@@ -1,11 +1,6 @@
-
-
-
 export default function AvisoDeAcao({setOffAviso, id}){
-
     return(
         <>
-            
             <section className="fixed flex flex-col w-full top-0 h-screen bg-slate-800/80 items-center justify-center z-20">
 
                 <div className="bg-white w-full lg:w-[30rem] lg:mx-auto h-auto flex flex-col p-10 rounded-lg text-center">

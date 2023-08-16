@@ -1,5 +1,3 @@
-import Image from "next/image";
-import userImage from "../../../public/assets/user-icon.png" 
 import { useState } from "react";
 import AvisoDeAcao from "./AvisoDeAcao";
 
