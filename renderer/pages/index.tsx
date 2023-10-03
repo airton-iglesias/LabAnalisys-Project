@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import TitleBar from "../components/TitleBar";
-import Link from "next/link";
 import ResultadoAnalise from "../components/analise_page/ResultadoAnalise";
 
 export default function AnalisePage() {
@@ -29,6 +27,7 @@ export default function AnalisePage() {
         getVideoDevices();
     }, []);
 
+    //Função para ativar a câmera selecionada
     const handleCameraChange = async () => {
         setCameraIsActive(true)
         const selectedDeviceId = cameraSelectRef.current.value;
@@ -44,6 +43,7 @@ export default function AnalisePage() {
         }
     };
 
+    //função para limpar o vídeo quando não houver câmera selecionada
     const handleCameraSelectChange = () => {
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
@@ -52,18 +52,14 @@ export default function AnalisePage() {
         setCameraIsActive(false)
         videoRef.current.srcObject = null;
     };
-    
 
+    //função para tirar um print de um frame do vídeo
     const handleCaptureFrame = () => {
-
         const canvas = document.createElement('canvas');
-        
         const video = videoRef.current;
         const context = canvas.getContext('2d');
-        
 
         if (video && context) {
-
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             
@@ -73,20 +69,21 @@ export default function AnalisePage() {
         }
     };
 
+    //JSON de informações do componente
     const ComponentInfos = {
         "ID": 0,
         "img": imageObject,
         "coliform": 0,
         "eColi": 0,
     }
-
+    
+    //Função para fechar o componente e voltar para o vídeo
     const fecharResultados = () =>{
         setFrameCapturado(false);
         setMostrarResultados(false)
         handleCameraChange()
 
     }
-
     return (
         <>
             {mostrarResultados ? <><ResultadoAnalise infos={ComponentInfos} fecharResultados={fecharResultados} /></> : <></>}
@@ -96,18 +93,18 @@ export default function AnalisePage() {
                     <div className="w-full bg-black h-full flex justify-center items-center rounded-lg">
                         {cameraIsActive ? 
                             <>
-                            {frameCapturado ? 
-                                <img src={imageObject}
-                                    className="w-full h-full object-cover"
-                                />
-                                :       
-                                <video
-                                    className="w-full h-full object-cover"
-                                    ref={videoRef} 
-                                    autoPlay 
-                                >   
-                                </video>
-                            }
+                                {frameCapturado ? 
+                                    <img src={imageObject}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    :       
+                                    <video
+                                        className="w-full h-full object-cover"
+                                        ref={videoRef} 
+                                        autoPlay 
+                                    >   
+                                    </video>
+                                }    
                             </>
                             :
                             <>
@@ -146,7 +143,7 @@ export default function AnalisePage() {
                                     </>: 
                                     <>
                                         <button 
-                                            className="block w-full text-white bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-3 text-center h-12"
+                                            className={captureBTN ? "block w-full text-white bg-red-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-3 text-center h-12": "block w-full text-white bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-3 text-center h-12"}
                                             onClick={handleCaptureFrame}
                                             disabled={captureBTN}
                                         >
