@@ -121,6 +121,7 @@ export default function AnalisePage() {
                                     ref={cameraSelectRef}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-slate-800  focus:outline-slate-800 block w-full p-2.5 " 
                                     onChange={(e) => {e.target.value === "Selecione a Câmera" ? handleCameraSelectChange():handleCameraChange()}}
+                                    disabled={frameCapturado ? true:false}
                                 >
                                     <option>Selecione a Câmera</option>
                                 </select>
