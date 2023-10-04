@@ -5,12 +5,10 @@ export default function AnalisePage() {
     const [stream, setStream] = useState(null);
     const videoRef = useRef(null);
     const cameraSelectRef = useRef(null);
-
     const [frameCapturado, setFrameCapturado] = useState(false);
     const [imageObject, setImageObject] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [componentInfos, setComponentInfos] = useState(null);
-
     const [mostrarResultados, setMostrarResultados] = useState(false);
     const [captureBTN, setCaptureBTN] = useState(true);
     const [cameraIsActive, setCameraIsActive] = useState(false);
@@ -91,7 +89,6 @@ export default function AnalisePage() {
         }
 
         const data = await response.json()
-
         setComponentInfos(data)
         setMostrarResultados(true)
     }
@@ -101,7 +98,6 @@ export default function AnalisePage() {
         setFrameCapturado(false);
         setMostrarResultados(false);
         handleCameraChange();
-
     }
 
     return (

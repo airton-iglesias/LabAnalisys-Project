@@ -1,10 +1,5 @@
 export default function ResultadoAnalise(props){
-
-
-
-
     var infos = props.infos
-    console.log(infos)
     var listaDeteccoes = []
 
     for (const key in infos.deteccoes) {
