@@ -1,9 +1,23 @@
-
 export default function ResultadoAnalise(props){
-    const infos = props.infos
+
+
+
+
+    var infos = props.infos
+    console.log(infos)
+    var listaDeteccoes = []
+
+    for (const key in infos.deteccoes) {
+      if (infos.deteccoes.hasOwnProperty(key)) {
+        const valor = infos.deteccoes[key];
+        listaDeteccoes.push(<span key={key}>{`${key}: ${valor}`} </span>);
+      }
+    }
 
     const handlerFecharComponent = () =>{
         props.fecharResultados()
+        listaDeteccoes = []
+        infos = null
     }
     return(
         <>
@@ -23,18 +37,17 @@ export default function ResultadoAnalise(props){
                 </div>
 
                 <div className=" bg-slate-50 w-3/4 h-auto mx-auto rounded-lg">
+
                     <div className="flex text-center text-2xl p-12 flex-col justify-center">
                         <h1 className="text-3xl mb-4"><b>Resultados da Análise:</b></h1>
-                        <span>ID: {infos.ID}</span>
-                        <span>Coliform: {infos.coliform}</span>
-                        <span>E-Coli: {infos.eColi}</span>
-
+                        {listaDeteccoes}
                     </div>
 
                     <div className="flex justify-center pb-3 w-full h-auto">
                         <img 
                             className="w-[60%] h-[60%] rounded-lg"
-                            src={infos.img}/>
+                            src={"http://52.67.214.138:8000"+ infos.image_url}
+                        />
                     </div>
 
                     <div className="flex justify-end mr-20 pb-3">
@@ -44,6 +57,7 @@ export default function ResultadoAnalise(props){
                         >Voltar
                         </button>
                     </div>
+                    
                 </div>
             </div>
         </>

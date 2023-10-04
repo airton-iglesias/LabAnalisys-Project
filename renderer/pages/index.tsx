@@ -5,8 +5,12 @@ export default function AnalisePage() {
     const [stream, setStream] = useState(null);
     const videoRef = useRef(null);
     const cameraSelectRef = useRef(null);
+
     const [frameCapturado, setFrameCapturado] = useState(false);
     const [imageObject, setImageObject] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
+    const [componentInfos, setComponentInfos] = useState(null);
+
     const [mostrarResultados, setMostrarResultados] = useState(false);
     const [captureBTN, setCaptureBTN] = useState(true);
     const [cameraIsActive, setCameraIsActive] = useState(false);
@@ -29,14 +33,14 @@ export default function AnalisePage() {
 
     //Função para ativar a câmera selecionada
     const handleCameraChange = async () => {
-        setCameraIsActive(true)
+        setCameraIsActive(true);
         const selectedDeviceId = cameraSelectRef.current.value;
         if (selectedDeviceId) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: selectedDeviceId } });
                 setStream(stream);
                 videoRef.current.srcObject = stream;
-                setCaptureBTN(false)
+                setCaptureBTN(false);
             } catch (error) {
                 console.error('Error accessing camera:', error);
             }
@@ -49,7 +53,7 @@ export default function AnalisePage() {
             stream.getTracks().forEach(track => track.stop());
         }
         setCaptureBTN(true);
-        setCameraIsActive(false)
+        setCameraIsActive(false);
         videoRef.current.srcObject = null;
     };
 
@@ -65,28 +69,44 @@ export default function AnalisePage() {
             
             context.drawImage(video, 0, 0, canvas.width, canvas.height );
             setFrameCapturado(true);
-            setImageObject(canvas.toDataURL('image/jpeg'))           
+            setImageObject(canvas.toDataURL('image/jpeg')); 
+            canvas.toBlob((blob) => {
+                const file = new File([blob], 'captured_frame.jpg', { type: 'image/jpeg' });
+                setImageFile(file);
+            }, 'image/jpeg');          
         }
     };
 
-    //JSON de informações do componente
-    const ComponentInfos = {
-        "ID": 0,
-        "img": imageObject,
-        "coliform": 0,
-        "eColi": 0,
+
+    const requisitarAnalise = async () => {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const headers = new Headers();
+        headers.append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjo4MDAzNTg4MTkzLCJpYXQiOjE2OTYzODgxOTMsImp0aSI6Ijk1MThiMzgyMDc0NTQ3NTM5YmM2ZTA4ZDg5YWU1MWU1IiwidXNlcl9pZCI6MX0.LkjLJ4FUWD-bHJT8XXVYYyQ62SSHoRrM6gAAcVhIfIA');
+
+        const response = await fetch('http://52.67.214.138:8000/api/predict', {method: 'POST', body: formData, headers: headers,});
+
+        if(!response.ok){
+            throw new Error('Failed to fetch data')
+        }
+
+        const data = await response.json()
+
+        setComponentInfos(data)
+        setMostrarResultados(true)
     }
-    
+
     //Função para fechar o componente e voltar para o vídeo
     const fecharResultados = () =>{
         setFrameCapturado(false);
-        setMostrarResultados(false)
-        handleCameraChange()
+        setMostrarResultados(false);
+        handleCameraChange();
 
     }
+
     return (
         <>
-            {mostrarResultados ? <><ResultadoAnalise infos={ComponentInfos} fecharResultados={fecharResultados} /></> : <></>}
+            {mostrarResultados ? <><ResultadoAnalise infos={componentInfos} fecharResultados={fecharResultados} /></> : <></>}
            
             <section className="flex w-screen h-screen bg-slate-800 text-white justify-between">
                 <div className="w-[77%] h-screen rounded-lg top-[-1.9rem]">
@@ -137,7 +157,7 @@ export default function AnalisePage() {
                                         </button>
                                         <button 
                                             className="block w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 text-center h-12"
-                                            onClick={()=> {handleCaptureFrame; setMostrarResultados(true)}}
+                                            onClick={requisitarAnalise}
                                         >
                                             Analisar Amostra
                                         </button>
