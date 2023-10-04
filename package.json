@@ -37,7 +37,10 @@
     "files": [
       "main",
       "renderer/out"
-    ]
+    ],
+    "win": {
+      "target": "portable"
+    }
   },
   "name": "labanalisys",
   "version": "1.0.0",
