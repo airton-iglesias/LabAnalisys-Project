@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+
 export default function ResultadoAnalise(props){
+
+    useEffect(()=>{
+        props.fecharLoading()
+    }, [])
+
     var infos = props.infos
     var listaDeteccoes = []
 
@@ -33,15 +40,15 @@ export default function ResultadoAnalise(props){
 
                 <div className=" bg-slate-50 w-3/4 h-auto mx-auto rounded-lg">
 
-                    <div className="flex text-center text-2xl p-12 flex-col justify-center">
+                    <div className="flex text-center text-2xl p-8 flex-col justify-center">
                         <h1 className="text-3xl mb-4"><b>Resultados da Análise:</b></h1>
-                        {listaDeteccoes}
+                        {listaDeteccoes.length > 0 ? listaDeteccoes : <h1 className="">"Não foi detectado nada"</h1>}
                     </div>
 
                     <div className="flex justify-center pb-3 w-full h-auto">
                         <img 
                             className="w-[60%] h-[60%] rounded-lg"
-                            src={"http://52.67.214.138:8000"+ infos.image_url}
+                            src={`http://52.67.214.138:8000${infos.image_url}?${Math.random()}`}
                         />
                     </div>
 

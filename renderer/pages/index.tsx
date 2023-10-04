@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import ResultadoAnalise from "../components/analise_page/ResultadoAnalise";
+import ResultadoAnalise from "../components/ResultadoAnalise";
+import IsLoading from "../components/isLoading";
+import CameraIsLoading from "../components/CameraIsLoading";
 
 export default function AnalisePage() {
     const [stream, setStream] = useState(null);
@@ -12,6 +14,8 @@ export default function AnalisePage() {
     const [mostrarResultados, setMostrarResultados] = useState(false);
     const [captureBTN, setCaptureBTN] = useState(true);
     const [cameraIsActive, setCameraIsActive] = useState(false);
+    const [apiIsLoading, setApiIsLoading] = useState(false);
+    const [cameraIsLoading, setCameraIsLoading] = useState(false);
 
     useEffect(() => {
         // Função para obter a lista de dispositivos de vídeo
@@ -32,6 +36,7 @@ export default function AnalisePage() {
     //Função para ativar a câmera selecionada
     const handleCameraChange = async () => {
         setCameraIsActive(true);
+        setCameraIsLoading(true)
         const selectedDeviceId = cameraSelectRef.current.value;
         if (selectedDeviceId) {
             try {
@@ -39,6 +44,7 @@ export default function AnalisePage() {
                 setStream(stream);
                 videoRef.current.srcObject = stream;
                 setCaptureBTN(false);
+                setCameraIsLoading(false)
             } catch (error) {
                 console.error('Error accessing camera:', error);
             }
@@ -75,8 +81,8 @@ export default function AnalisePage() {
         }
     };
 
-
     const requisitarAnalise = async () => {
+        setApiIsLoading(true)
         const formData = new FormData();
         formData.append('image', imageFile);
         const headers = new Headers();
@@ -97,15 +103,23 @@ export default function AnalisePage() {
     const fecharResultados = () =>{
         setFrameCapturado(false);
         setMostrarResultados(false);
+        setComponentInfos(null);
+        setImageFile(null);
         handleCameraChange();
+    }
+
+    const fecharLoading = () =>{
+        setApiIsLoading(false)
     }
 
     return (
         <>
-            {mostrarResultados ? <><ResultadoAnalise infos={componentInfos} fecharResultados={fecharResultados} /></> : <></>}
+            {mostrarResultados ? <><ResultadoAnalise infos={componentInfos} fecharResultados={fecharResultados} fecharLoading={fecharLoading}/></> : <></>}
+            {apiIsLoading ? <IsLoading/>:<></>}
            
             <section className="flex w-screen h-screen bg-slate-800 text-white justify-between">
                 <div className="w-[77%] h-screen rounded-lg top-[-1.9rem]">
+                    {cameraIsLoading? <CameraIsLoading/>:<></>}
                     <div className="w-full bg-black h-full flex justify-center items-center rounded-lg">
                         {cameraIsActive ? 
                             <>
